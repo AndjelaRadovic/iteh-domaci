@@ -1,173 +1,73 @@
+
+  <?php
+
+require "dbBroker.php";
+require "model/user.php";
+
+session_start();
+if(isset($_POST['username']) && isset($_POST['password'])){
+    $uname = $_POST['username'];
+    $upass = $_POST['password'];
+
+    // $conn = new mysqli() /// pregazena konekcija iz dbBrokera;
+    $korisnik = new User(4, $uname, $upass);
+    // $odg = $korisnik->logInUser($uname, $upass, $conn);
+    $odg = User::logInUser($korisnik, $conn); //pristup statickim funkcijama preko klase
+
+    if($odg->num_rows==1){
+        echo  `
+        <script>
+        console.log( "Uspešno ste se prijavili");
+        </script>
+        `;
+        $_SESSION['user_id'] = $korisnik->id;
+        header('Location: home.php');
+        exit();
+    }else{
+        echo `
+        <script>
+        console.log( "Niste se prijavili!");
+        </script>
+        `;
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order food</title>
-
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Login</title>
 </head>
 <body>
-   <section class="navbar">
-       <div class="container">
-          <div class="food-logo">
-             <img class="logo" src="images/logo.jpg" alt="Food Logo">
+<div class="wrapper">
+  <div class="form">
+    <div class="title">
+      Prijavi se i naruči omiljenu hranu
+    </div>
+    <form method="POST" action="#">
+      <div class="input_wrap">
+        <label for="input_text">Korisničko ime:</label>
+        <div class="input_field">
+          <input type="text" name="username" class="input" id="input_text" required>
           </div>
-          <div class="menu text-right">
-              <ul>
-               <li><a href="">Home</a></li>
-               <li><a href="">About</a></li>
-               <li><a href="">Foods</a></li>
-               <li><a href="">Contact</a></li>
-
-
-
-              </ul>
-
+         </div>
+          <div class="input_wrap">
+            <label for="input_password">Lozinka:</label>
+            <div class="input_field">
+            <input type="password" name="password" class="input" id="input_password" required>
+           </div>
           </div>
-          <div class="clearfix"></div>
-
-        </div>
-     
-   </section> 
-
-   <section class="food-search text-center">
-         <div class="container">
-             <input type="search" name="search" placeholder="Search for food...">
-             <input type="submit" name="submit" value="Search" class="btn btn-primary">
-        </div>
-   </section> 
-
-   <section class="food-menu">
-   <div class="container">
-       
-           <h2 class="text-center">Explore foods</h2>
-               <div class="food-menu-box">
-                  <div class="food-menu-img">
-                      <img src="images/pizza.jpg" alt="Mexicana Pizza" class="img-responsive img-curve">
-                  </div> 
-                  <div class="food-menu-desc">
-                      <h4>Pizza Mexicana</h4>
-                        <p class="food-price">249 din</p>
-                       <p class="food-details">pelat, gauda, svježi šampinjoni, šunka, kulen, povrće – meksički mix, kukuruz, ljuti feferoni, maslina, origano</p>
-                       <br>
-                       <a href="a" class="btn btn-primary">Order Now</a>
-                    </div>
-                    <div class="clearfix"></div>
-
-          
-                </div>
-              
-
-                <div class="food-menu-box">
-                  <div class="food-menu-img">
-                      <img src="images/burger.jpg" alt="Mexicana Pizza" class="img-responsive img-curve">
-                  </div> 
-                  <div class="food-menu-desc">
-                      <h4>Burger</h4>
-                        <p class="food-price">229 din</p>
-                       <p class="food-details">Sa ka;kavaljem i slaninom</p>
-                       <br>
-                       <a href="a" class="btn btn-primary">Order Now</a>
-                    </div>
-                    <div class="clearfix"></div>
-
-          
-                </div>
-              
-
-                <div class="food-menu-box">
-                  <div class="food-menu-img">
-                      <img src="images/creamy-bacon-carbonara.jpg" alt="Mexicana Pizza" class="img-responsive img-curve">
-                  </div> 
-                  <div class="food-menu-desc">
-                      <h4>Pasta Carbonara</h4>
-                        <p class="food-price">319 din</p>
-                       <p class="food-details">Sa ka;kavaljem i slaninom</p>
-                       <br>
-                       <a href="a" class="btn btn-primary">Order Now</a>
-                    </div>
-                    <div class="clearfix"></div>
-
-          
-                </div>
-              
-
-                <div class="food-menu-box">
-                  <div class="food-menu-img">
-                      <img src="images/chicken-nuggets.jpg" alt="Mexicana Pizza" class="img-responsive img-curve">
-                  </div> 
-                  <div class="food-menu-desc">
-                      <h4>Pohovani pileći komadići</h4>
-                        <p class="food-price">350 din</p>
-                       <p class="food-details">Sa ka;kavaljem i slaninom</p>
-                       <br>
-                       <a href="a" class="btn btn-primary">Order Now</a>
-                    </div>
-                    <div class="clearfix"></div>
-
-          
-                </div>
-              
-
-                <div class="food-menu-box">
-                  <div class="food-menu-img">
-                      <img src="images/sandwich.jpg" alt="Mexicana Pizza" class="img-responsive img-curve">
-                  </div> 
-                  <div class="food-menu-desc">
-                      <h4>Sendvič</h4>
-                        <p class="food-price">199 din</p>
-                       <p class="food-details">Sa ka;kavaljem i slaninom</p>
-                       <br>
-                       <a href="a" class="btn btn-primary">Order Now</a>
-                    </div>
-                    <div class="clearfix"></div>
-
-          
-                </div>
-              
-
-                <div class="food-menu-box">
-                  <div class="food-menu-img">
-                      <img src="images/fries.jpg" alt="Mexicana Pizza" class="img-responsive img-curve">
-                  </div> 
-                  <div class="food-menu-desc">
-                      <h4>Pomfrit</h4>
-                        <p class="food-price">219 din</p>
-                       <p class="food-details">Sa ka;kavaljem i slaninom</p>
-                       <br>
-                       <a href="a" class="btn btn-primary">Order Now</a>
-                    </div>
-                    <div class="clearfix"></div>
-
-          
-                </div>
-              
-     
-             <div class="clearfix"></div>
-
-        </div>
-   </section> 
-
-
-   <section class="social">
-         <div class="container text-center">
-           <ul>
-             <li><a href=""><img src="https://img.icons8.com/fluency/48/000000/facebook-new.png"/></a></li>
-             <li><a href=""><img src="https://img.icons8.com/fluency/48/000000/instagram-new.png"/></a></li>
-             <li><a href=""><img src="https://img.icons8.com/fluency/48/000000/twitter.png"/></a></li>
-
-           </ul>
-        </div>
-   </section> 
-
-
-   <section class="footer">
-       <div class="container">   
-            <p>All rights deserved.</p>
-        </div>
-
-    </section> 
+            <div class="input_wrap">
+        <button type="submit" class="btn btn-primary" name="submit">Prijavi se</button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>
