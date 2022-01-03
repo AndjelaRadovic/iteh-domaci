@@ -4,19 +4,17 @@ public $id;
 public $food;
 public $price;
 public $quantity;
-public $total;
 public $order_date;
 public $customer_name;
 public $customer_contact;
 
 
 
-public function __construct($id=null,$food=null,$price=null,$quantity=null,$total=null,$order_date=null, $customer_name=null,$customer_contact=null){
+public function __construct($id=null,$food=null,$price=null,$quantity=null,$order_date=null, $customer_name=null,$customer_contact=null){
       $this->id=$id;
       $this->food=$food;
       $this->price=$price;
       $this->quantity=$quantity;
-      $this->total=$total;
       $this->order_date=$order_date;
       $this->customer_name=$customer_name;
       $this->customer_contact=$customer_contact;
@@ -61,29 +59,20 @@ public function __construct($id=null,$food=null,$price=null,$quantity=null,$tota
        #fja UPDATE
     public function update($id, mysqli $conn)
     {
-        $query = "UPDATE order_food set food = $this->food,price = $this->price,quantity = $this->quantity,total = $this->total,order_date = $this->order_date,customer_name = $this->customer_name,customer_contact = $this->customer_contact WHERE id=$id";
+        $query = "UPDATE order_food set food = $this->food,price = $this->price,quantity = $this->quantity,order_date = $this->order_date,customer_name = $this->customer_name,customer_contact = $this->customer_contact WHERE id=$id";
         return $conn->query($query);
     }
 
        #fja INSERT/ADD
        public static function add(Order $order, mysqli $conn)
        {
-           $query = "INSERT INTO rezervacije(food, price, quantity, total, order_date, customer_name, customer_contact ) VALUES('$order->food','$order->price','$order->quantity','$order->total','$order->order_date','$order->customer_name','$order->customer_contact')";
+           $query = "INSERT INTO order_food(food, price, quantity, order_date, customer_name, customer_contact ) VALUES('$order->food','$order->price','$order->quantity','$order->order_date','$order->customer_name','$order->customer_contact')";
            return $conn->query($query);
        }
 
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 ?>
