@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2021 at 12:19 AM
+-- Generation Time: Jan 03, 2022 at 12:24 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -24,35 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `food`
---
-
-CREATE TABLE `food` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `order_food`
 --
 
 CREATE TABLE `order_food` (
   `id` int(10) UNSIGNED NOT NULL,
-  `food` int(50) NOT NULL,
+  `food` varchar(50) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `total` decimal(10,2) NOT NULL,
   `order_date` datetime NOT NULL,
-  `status` varchar(50) NOT NULL,
   `customer_name` varchar(100) NOT NULL,
-  `customer_contact` varchar(20) NOT NULL,
-  `customer_email` varchar(100) NOT NULL,
-  `customer_address` varchar(200) NOT NULL
+  `customer_contact` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_food`
+--
+
+INSERT INTO `order_food` (`id`, `food`, `price`, `quantity`, `order_date`, `customer_name`, `customer_contact`) VALUES
+(1, 'Pizza Mexicana', '249.00', 2, '2021-12-09 22:44:30', 'Maja Pavlovic', '0656653344'),
+(4, 'Fries', '119.00', 5, '2021-12-09 22:47:33', 'Tanja Bakic', '0611124577');
 
 -- --------------------------------------------------------
 
@@ -78,12 +69,6 @@ INSERT INTO `user` (`id`, `username`, `password`) VALUES
 --
 
 --
--- Indexes for table `food`
---
-ALTER TABLE `food`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `order_food`
 --
 ALTER TABLE `order_food`
@@ -100,16 +85,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `food`
---
-ALTER TABLE `food`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `order_food`
 --
 ALTER TABLE `order_food`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
