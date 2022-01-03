@@ -24,6 +24,8 @@ body{
   align-items: center;
 }
 
+
+
 .form{
   width: 425px;
   height: auto;
@@ -40,7 +42,7 @@ body{
 }
 
 .form .input_wrap{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 325px;
   position: relative;
 }
@@ -51,7 +53,7 @@ body{
 
 .form .input_wrap label{
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .form .input_wrap input{
